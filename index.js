@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { connectDB } from "./Database/dataBase.js";
 import route from "./routes/userRoute.js";
-import cors from "cors"
+import cors from "cors";
 dotenv.config();
 const app = express();
 // Enable all CORS requests
@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 connectDB();
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.send("Server is up and Running");
 });
 
 app.listen(PORT, () => {
