@@ -3,8 +3,11 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { connectDB } from "./Database/dataBase.js";
 import route from "./routes/userRoute.js";
+import cors from "cors"
 dotenv.config();
 const app = express();
+// Enable all CORS requests
+app.use(cors());
 const PORT = process.env.SERVER_PORT;
 app.use(bodyParser.json());
 connectDB();

@@ -1,18 +1,19 @@
-import jwt from "jsonwebtoken"
-const SECRET_key = "dfsjhdjhsdjhajkdhjash";
-export const auth = (req, res, next) => {
+import jwt from "jsonwebtoken";
+
+const auth = (req, res, next) => {
   try {
-    let token = req.headers.authorization;
-    console.log(token)
-    if (token) {
-      token = token.split(" ")[1];
-      let user = jwt.verify(token, SECRET_key);
-      req.userid = user.id;
-    } else {
-      res.status(401).json({ message: "AUth issue" });
-    }
+    const userToken = req.headers.authorization;
+
+    if (!userToken) return res.status(401).json({ error: "Unauthorized User" });
+    const token = userToken.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    req.userData = decoded;
     next();
   } catch (err) {
-    console.log(err);
+    res.status(401).json({ error: err.message });
   }
 };
+
+export default auth;
