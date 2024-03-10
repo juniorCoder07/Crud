@@ -6,8 +6,8 @@ export const addProduct = async (req, res) => {
     const user = req.userData.id;
 
     const product = new Product({ name, price, date, user });
-    await product.save();
-    return res.status(200).json({ message: "Product added successfully" });
+    const data=await product.save();
+    return res.status(200).json({ message: "Product added successfully", data:data});
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Internal Server Error. " });
